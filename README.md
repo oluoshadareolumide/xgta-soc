@@ -1,78 +1,36 @@
-# XGTA-SOC — Explainable Graph Threat Attribution SOC Platform
+# BATCH 2 — Full React UI
 
-A full-stack cybersecurity SOC automation platform with GNN-based threat attribution, explainable AI, and real-time alert management.
+## What's new in Batch 2
 
-## Tech Stack
+### Frontend Pages (all wired to live API)
+| Page | File | Description |
+|---|---|---|
+| Overview | `OverviewPage.tsx` | KPI cards, live alert feed, model perf, active actors |
+| Alerts | `AlertsPage.tsx` | Full CRUD table, filters, status updates, AI analysis panel |
+| Threat Graph | `GraphPage.tsx` | Interactive SVG knowledge graph — click nodes to explore |
+| Threat Actors | `ActorsPage.tsx` | List + Create modal, confidence bars, TTP tags |
+| IOC Library | `IOCPage.tsx` | Search, type filter, Add IOC modal, hits heatmap |
+| Playbooks | `PlaybooksPage.tsx` | Execution engine UI, progress bars, step-by-step panel |
 
-| Layer | Technology |
+### Components
+- `AppShell.tsx` — Sticky header, nav tabs, live UTC clock, alert stat counters, user menu
+- `components/ui/index.tsx` — Shared primitives: Badge, StatusPill, ConfBar, Spinner, Card, ActionButton, etc.
+
+### Features added
+- React Query for all data fetching with 15-30s auto-refresh
+- Zustand auth store with token persistence
+- Axios interceptor — auto-attaches JWT, redirects to /login on 401
+- Paginated alert list with status + severity filters
+- Alert detail panel with AI analysis (Claude API) + saves result to backend
+- Create/update modals for threat actors and IOCs
+- IOC value search with deduplication feedback
+- Playbook execution simulator with animated progress (full engine in Batch 3)
+
+## Batch Roadmap
+| Batch | Status |
 |---|---|
-| Backend | Python FastAPI |
-| Database | SQL Server (via pyodbc / SQLAlchemy) |
-| ORM | SQLAlchemy 2.0 + Alembic migrations |
-| Auth | JWT (python-jose) + bcrypt |
-| Frontend | React 18 + TypeScript + Vite |
-| State | Zustand |
-| Styling | Tailwind CSS |
-| API Client | Axios + React Query |
-
-## Git Batch Plan
-
-| Batch | Contents |
-|---|---|
-| **Batch 1** (this) | Project scaffold, Auth, Alerts API, Threat Actors API, IOC Library API |
-| **Batch 2** | Frontend React app wired to API, auth flow, dashboard |
-| **Batch 3** | Playbooks engine, WebSocket live alerts |
-| **Batch 4** | GNN threat graph, XAI explainability module |
-| **Batch 5** | Docker, CI/CD, deployment config |
-
-## Project Structure
-
-```
-xgta-soc/
-├── backend/
-│   ├── app/
-│   │   ├── api/          # Route handlers
-│   │   ├── core/         # Config, security, dependencies
-│   │   ├── db/           # Database engine + session
-│   │   ├── models/       # SQLAlchemy ORM models
-│   │   ├── schemas/      # Pydantic request/response schemas
-│   │   └── services/     # Business logic
-│   ├── alembic/          # DB migrations
-│   ├── requirements.txt
-│   └── main.py
-├── frontend/
-│   ├── src/
-│   │   ├── components/   # Reusable UI components
-│   │   ├── pages/        # Route-level pages
-│   │   ├── hooks/        # Custom React hooks
-│   │   ├── services/     # API client functions
-│   │   ├── store/        # Zustand state stores
-│   │   └── types/        # TypeScript interfaces
-│   ├── package.json
-│   └── vite.config.ts
-└── README.md
-```
-
-## Quick Start
-
-### Backend
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env      # Edit with your SQL Server connection string
-alembic upgrade head
-uvicorn main:app --reload
-```
-
-### Frontend
-```bash
-cd frontend
-npm install
-cp .env.example .env.local
-npm run dev
-```
-
-### API Docs
-Once running: http://localhost:8000/docs
+| **Batch 1** — Scaffold, Auth, CRUD APIs | ✅ Done |
+| **Batch 2** — Full React UI wired to API | ✅ Done |
+| **Batch 3** — Playbooks engine, WebSocket live alerts | 🔜 Next |
+| **Batch 4** — GNN threat graph, XAI explainability | 🔜 |
+| **Batch 5** — Docker, CI/CD, deployment | 🔜 |

@@ -22,6 +22,11 @@ class Settings(BaseSettings):
     # Anthropic
     ANTHROPIC_API_KEY: str = ""
 
+    # Alert Simulator
+    SIMULATE_ALERTS: bool = True
+    SIM_INTERVAL_MIN: int = 20   # seconds between simulated alerts (min)
+    SIM_INTERVAL_MAX: int = 60   # seconds between simulated alerts (max)
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
